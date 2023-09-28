@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Game } from "../../types/Game.types";
 import { motion } from "framer-motion";
 import GameCard from "../../components/GameCard/GameCard";
+import Button from "../../components/Button/Button";
+import { RiArrowRightLine } from "react-icons/ri";
 
 interface Props {
   games: Game[];
@@ -42,6 +44,9 @@ const Home = ({ games }: Props) => {
           big={index === 0}
         />
       ))}
+      <Button className="Store">
+        쇼핑하러 가기 <RiArrowRightLine />
+      </Button>
     </motion.div>
   );
 };
