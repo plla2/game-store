@@ -1,10 +1,21 @@
 @use "header";
 @use "colors";
+@use "home";
 
 .App {
   min-height: 100vh;
   background-color: colors.$bg1;
   font-family: "Pretendard";
+  display: flex;
+  flex-direction: column;
+}
+
+.Loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 
 .Button {
@@ -17,6 +28,7 @@
   background-color: transparent;
   color: colors.$text;
   cursor: pointer;
+  user-select: none;
   transition: tranform 0.2s, color 0.2s;
 
   font: {
