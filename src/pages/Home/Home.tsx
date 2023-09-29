@@ -26,7 +26,6 @@ const Home = ({ games }: Props) => {
     return () => clearInterval(interval);
   }, []);
 
-  console.log(homeGames);
   return (
     <motion.div
       className="Home"
