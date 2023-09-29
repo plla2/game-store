@@ -77,23 +77,24 @@ $min-card-height: 125px;
       }
     }
   }
-  .Button.Store {
+  a.Store {
     margin-left: 3%;
-    padding-inline: 0;
     justify-self: center;
-    color: white;
 
-    font: {
-      size: clamp(17px, 2.5vw, 25px);
-      weight: 600;
-    }
+    .Button {
+      padding-inline: 0;
+      color: white;
+      font: {
+        size: clamp(17px, 2.5vw, 25px);
+        weight: 600;
+      }
+      &:hover {
+        color: colors.$accent;
 
-    &:hover {
-      color: colors.$accent;
-
-      svg {
-        transform: translateX(5px);
-        transition-duration: 0.5s;
+        svg {
+          transform: translateX(5px);
+          transition-duration: 0.5s;
+        }
       }
     }
   }
@@ -110,7 +111,7 @@ $min-card-height: 125px;
     grid-row: 1 / 2;
   }
 
-  .Button.Store {
+  a.Store {
     margin-left: 1%;
     grid-column: 1 / 4;
   }
