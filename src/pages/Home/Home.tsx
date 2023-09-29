@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Game } from "../../types/Game.types";
-import { motion } from "framer-motion";
 import GameCard from "../../components/GameCard/GameCard";
 import Button from "../../components/Button/Button";
 import { RiArrowRightLine } from "react-icons/ri";
+import Transition from "../../components/Transition/Transition";
+import { Link } from "react-router-dom";
 
 interface Props {
   games: Game[];
@@ -27,12 +28,7 @@ const Home = ({ games }: Props) => {
   }, []);
 
   return (
-    <motion.div
-      className="Home"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <Transition className="Home">
       {homeGames.map((game, index) => (
         <GameCard
           key={game.id}
@@ -43,10 +39,12 @@ const Home = ({ games }: Props) => {
           big={index === 0}
         />
       ))}
-      <Button className="Store">
-        쇼핑하러 가기 <RiArrowRightLine />
-      </Button>
-    </motion.div>
+      <Link to="games" className="Store">
+        <Button>
+          쇼핑하러 가기 <RiArrowRightLine />
+        </Button>
+      </Link>
+    </Transition>
   );
 };
 

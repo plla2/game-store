@@ -1,16 +1,11 @@
-import { motion } from "framer-motion";
 import { CircularProgress } from "react-cssfx-loading";
+import Transition from "../Transition/Transition";
 
 const Loading = () => {
   return (
-    <motion.div
-      className="Loading"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <Transition className="Loading">
       <CircularProgress height="100px" width="100px" color="#A084DC" />
-    </motion.div>
+    </Transition>
   );
 };
 
