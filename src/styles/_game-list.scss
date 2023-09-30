@@ -20,6 +20,7 @@
 
   .Grid {
     display: flex;
+    gap: clamp(15px, 3vw, 25px);
 
     .Column {
       display: flex;
