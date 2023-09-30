@@ -57,8 +57,8 @@ const GameListCard = (game: Game) => {
                   </div>
                 ))}
               </div>
-              <div className="Released">Released: {released}</div>
-              <div className="Genres">Genres: {genresList}</div>
+              <div className="Released">출시일 : {released}</div>
+              <div className="Genres">장르 : {genresList}</div>
             </Transition>
           )}
         </AnimatePresence>
