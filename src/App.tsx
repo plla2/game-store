@@ -30,8 +30,8 @@ const App = () => {
       const loadedGames = response.results;
       loadedGames.forEach((game) => {
         game.price = game.genres.find((genre) => genre.name === "Indie")
-          ? 26000
-          : 80000;
+          ? 18.99
+          : 26.99;
       });
       setGames(loadedGames);
     };
