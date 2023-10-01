@@ -20,7 +20,6 @@ const GameList = ({ games, loadGames }: Props) => {
 
   useEffect(() => {
     const searchParam = searchParams.get("search") || "";
-    console.log(searchParam);
     setIsLoading(true);
     if (searchParam) {
       (async () => {
