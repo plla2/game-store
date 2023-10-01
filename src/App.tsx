@@ -10,32 +10,24 @@ import GameList from "./components/GameList/GameList";
 import { AnimatePresence } from "framer-motion";
 
 const App = () => {
-  const [cartItem] = useState([]);
+  const cartItem: Game[] = [];
   const [games, setGames] = useState<Game[]>([]);
   const location = useLocation();
 
-  useEffect(() => {
-    const loadGames = async () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = `0${1 + today.getMonth()}`.slice(-2);
-      const day = `0${today.getDate()}`.slice(-2);
-      const date = `${year}-${month}-${day}`;
+  const loadGames = async (search?: string) => {
+    const response = await gameList({ page_size: 50, search });
+    let { results } = response;
+    results = results.filter((game) => game.ratings_count > (search ? 50 : 10));
+    const isIndie = (game: Game) => game.genres.find((g) => g.name === "Indie");
+    results.forEach((game) => (game.price = isIndie(game) ? 19.99 : 49.99));
+    return results;
+  };
 
-      const response = await gameList({
-        page_size: 50,
-        dates: date,
-      });
-      console.log(response);
-      const loadedGames = response.results;
-      loadedGames.forEach((game) => {
-        game.price = game.genres.find((genre) => genre.name === "Indie")
-          ? 18.99
-          : 26.99;
-      });
-      setGames(loadedGames);
-    };
-    loadGames();
+  useEffect(() => {
+    (async () => {
+      const results = await loadGames("");
+      setGames(results);
+    })();
   }, []);
 
   return (
@@ -50,7 +42,7 @@ const App = () => {
           <Route path="games">
             <Route
               index
-              element={games.length ? <GameList games={games} /> : <Loading />}
+              element={<GameList games={games} loadGames={loadGames} />}
             />
           </Route>
         </Routes>
