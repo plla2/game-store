@@ -17,8 +17,17 @@ const cycleArray = (array: Game[]) => {
   return newArr;
 };
 
+const getRandomGames = (games: Game[]): Game[] => {
+  const randomGames = new Set();
+  while (randomGames.size < 4) {
+    const index = Math.floor(Math.random() * games.length);
+    randomGames.add(games[index]);
+  }
+  return [...randomGames] as Game[];
+};
+
 const Home = ({ games }: Props) => {
-  const [homeGames, setHomeGames] = useState(games.slice(0, 4));
+  const [homeGames, setHomeGames] = useState(getRandomGames(games));
 
   useEffect(() => {
     const interval = setInterval(() => {
