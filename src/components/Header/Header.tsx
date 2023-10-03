@@ -7,10 +7,11 @@ import Transition from "../Transition/Transition";
 import { Game } from "../../types/Game.types";
 
 interface Props {
-  cartItem: Game[];
+  cartItems: Game[];
+  setIsCartOpen: (isCartOpen: boolean) => void;
 }
 
-const Header = ({ cartItem }: Props) => {
+const Header = ({ cartItems, setIsCartOpen }: Props) => {
   return (
     <Transition className="Header" direction="down" distance={20}>
       <Link to="/">
@@ -20,10 +21,10 @@ const Header = ({ cartItem }: Props) => {
         </Button>
       </Link>
       <SearchBar />
-      <Button className="Cart">
+      <Button className="Cart" handleClick={() => setIsCartOpen(true)}>
         <IoCart />
         Cart
-        <span>{cartItem.length}</span>
+        <span>{cartItems.length}</span>
       </Button>
     </Transition>
   );
