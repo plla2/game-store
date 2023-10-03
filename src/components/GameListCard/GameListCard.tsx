@@ -9,12 +9,25 @@ import {
   AiFillApple,
   AiOutlinePlus,
 } from "react-icons/ai";
-import { RiPlaystationFill, RiXboxFill } from "react-icons/ri";
+import { RiCheckLine, RiPlaystationFill, RiXboxFill } from "react-icons/ri";
 import { SiLinux, SiNintendo3Ds } from "react-icons/si";
 
-const GameListCard = (game: Game) => {
-  const { price, name, parent_platforms, genres, released, background_image } =
-    game;
+interface Props {
+  game: Game;
+  addCartItem: (game: Game) => void;
+  cartItems: Game[];
+}
+const GameListCard = ({ game, addCartItem, cartItems }: Props) => {
+  console.log(cartItems);
+  const {
+    price,
+    name,
+    parent_platforms,
+    genres,
+    released,
+    background_image,
+    id,
+  } = game;
   const platformsIcon: Record<string, React.ReactNode> = {
     pc: <AiFillWindows />,
     android: <AiFillAndroid />,
@@ -41,9 +54,18 @@ const GameListCard = (game: Game) => {
         onHoverEnd={() => setIsHovered(false)}
       >
         <div className="Price">
-          <Button className="CartButton">
-            Add to Cart <AiOutlinePlus />
-          </Button>
+          {cartItems.find((item) => item.id === id) ? (
+            <Transition className="Added">
+              Cart Added <RiCheckLine />
+            </Transition>
+          ) : (
+            <Button
+              className="CartButton"
+              handleClick={() => addCartItem(game)}
+            >
+              Add to Cart <AiOutlinePlus />
+            </Button>
+          )}
           $ {price}
         </div>
         <Button className="Name">{name}</Button>
