@@ -66,6 +66,13 @@
           gap: 10px;
           padding: 18px 20px 20px;
 
+          .Button.CartButton {
+            font: {
+              size: 14px;
+              weight: 600;
+            }
+          }
+
           .Button.CartButton:hover {
             color: colors.$accent;
           }
@@ -93,7 +100,20 @@
               weight: 700;
             }
           }
-
+          .Added {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: lightgreen;
+            user-select: none;
+          }
+          .Button.Name {
+            font: {
+              size: 20px;
+              weight: 600;
+            }
+          }
           .Details {
             display: flex;
             flex-direction: column;
