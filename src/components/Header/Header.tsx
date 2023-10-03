@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import "../../styles/_header.scss";
 import Transition from "../Transition/Transition";
 import { Game } from "../../types/Game.types";
+import { addScrollableSelector, disablePageScroll } from "scroll-lock";
 
 interface Props {
   cartItems: Game[];
@@ -21,7 +22,14 @@ const Header = ({ cartItems, setIsCartOpen }: Props) => {
         </Button>
       </Link>
       <SearchBar />
-      <Button className="Cart" handleClick={() => setIsCartOpen(true)}>
+      <Button
+        className="Cart"
+        handleClick={() => {
+          setIsCartOpen(true);
+          addScrollableSelector(".Items");
+          disablePageScroll();
+        }}
+      >
         <IoCart />
         Cart
         <span>{cartItems.length}</span>
