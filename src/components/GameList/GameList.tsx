@@ -11,9 +11,11 @@ import Grid from "../Grid/Grid";
 interface Props {
   games: Game[];
   loadGames: (search: string) => Promise<Game[]>;
+  addCartItem: (game: Game) => void;
+  cartItems: Game[];
 }
 
-const GameList = ({ games, loadGames }: Props) => {
+const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
   const [displayGames, setDisplayGames] = useState(games);
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +32,8 @@ const GameList = ({ games, loadGames }: Props) => {
       setDisplayGames(games);
       setIsLoading(false);
     }
-  }, [games, loadGames, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [games, searchParams]);
 
   return (
     <Transition className="GameList" direction="right">
@@ -48,7 +51,15 @@ const GameList = ({ games, loadGames }: Props) => {
           {searchParams.get("search") || "Best of All Time"}
         </motion.h2>
       </nav>
-      {isLoading ? <Loading /> : <Grid games={displayGames} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Grid
+          games={displayGames}
+          addCartItem={addCartItem}
+          cartItems={cartItems}
+        />
+      )}
     </Transition>
   );
 };

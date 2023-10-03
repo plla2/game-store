@@ -7,11 +7,13 @@ import GameListCard from "../GameListCard/GameListCard";
 
 interface Props {
   games: Game[];
+  addCartItem: (game: Game) => void;
+  cartItems: Game[];
 }
 
 const minCardWidth = 330;
 
-const Grid = ({ games }: Props) => {
+const Grid = ({ games, addCartItem, cartItems }: Props) => {
   const [columns, setColumns] = useState(1);
   const windowWidth = useWindowWidth();
   const gamesPerColumns = Math.ceil(games.length / columns);
@@ -36,7 +38,12 @@ const Grid = ({ games }: Props) => {
             return (
               <div key={`column-${index}`} className="Column">
                 {gamesToDisplay.map((game) => (
-                  <GameListCard key={game.id} {...game} />
+                  <GameListCard
+                    key={game.id}
+                    game={game}
+                    addCartItem={addCartItem}
+                    cartItems={cartItems}
+                  />
                 ))}
               </div>
             );
