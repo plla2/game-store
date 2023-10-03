@@ -8,10 +8,12 @@ import Loading from "./components/Loading/Loading";
 import { Game } from "./types/Game.types";
 import GameList from "./components/GameList/GameList";
 import { AnimatePresence } from "framer-motion";
+import Cart from "./components/Cart/Cart";
 
 const App = () => {
-  const cartItem: Game[] = [];
+  const [cartItems, setCartItems] = useState<Game[]>([]);
   const [games, setGames] = useState<Game[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
 
   const loadGames = async (search?: string) => {
@@ -23,6 +25,14 @@ const App = () => {
     return results;
   };
 
+  const addCartItem = (game: Game) => {
+    setCartItems((cartItems) => [...cartItems, game]);
+  };
+
+  const removeCartItem = (id: number) => {
+    setCartItems((cartItems) => cartItems.filter((game) => game.id !== id));
+  };
+
   useEffect(() => {
     (async () => {
       const results = await loadGames("");
@@ -32,7 +42,16 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header cartItem={cartItem} />
+      <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+      <AnimatePresence mode="wait">
+        {isCartOpen && (
+          <Cart
+            cartItems={cartItems}
+            setIsCartOpen={setIsCartOpen}
+            removeCartItem={removeCartItem}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
@@ -42,7 +61,14 @@ const App = () => {
           <Route path="games">
             <Route
               index
-              element={<GameList games={games} loadGames={loadGames} />}
+              element={
+                <GameList
+                  games={games}
+                  loadGames={loadGames}
+                  addCartItem={addCartItem}
+                  cartItems={cartItems}
+                />
+              }
             />
           </Route>
         </Routes>
