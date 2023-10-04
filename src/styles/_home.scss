@@ -99,9 +99,28 @@ $min-card-height: 125px;
     }
   }
 }
+footer {
+  margin: {
+    block: 5px 30px;
+    inline: 8%;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  .Github,
+  .Api {
+    font: {
+      size: 18px;
+      weight: 600;
+    }
+  }
+}
 
 @media (max-width: 950px) {
   .Home {
+    margin-bottom: 0;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr max(25%, $min-card-height) min-content;
   }
