@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import { RiArrowRightLine } from "react-icons/ri";
 import Transition from "../../components/Transition/Transition";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 interface Props {
   games: Game[];
@@ -37,23 +38,26 @@ const Home = ({ games }: Props) => {
   }, []);
 
   return (
-    <Transition className="Home">
-      {homeGames.map((game, index) => (
-        <GameCard
-          key={game.id}
-          id={game.id}
-          name={game.name}
-          backgroundImage={game.background_image}
-          duration={cardDuration}
-          big={index === 0}
-        />
-      ))}
-      <Link to="games" className="Store">
-        <Button>
-          쇼핑하러 가기 <RiArrowRightLine />
-        </Button>
-      </Link>
-    </Transition>
+    <>
+      <Transition className="Home" direction="left">
+        {homeGames.map((game, index) => (
+          <GameCard
+            key={game.id}
+            id={game.id}
+            name={game.name}
+            backgroundImage={game.background_image}
+            duration={cardDuration}
+            big={index === 0}
+          />
+        ))}
+        <Link to="games" className="Store">
+          <Button>
+            게임 더보기 <RiArrowRightLine />
+          </Button>
+        </Link>
+      </Transition>
+      <Footer />
+    </>
   );
 };
 
