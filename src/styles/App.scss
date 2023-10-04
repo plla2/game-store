@@ -6,6 +6,7 @@
 
 .App {
   min-height: 100vh;
+  padding-top: 80px;
   background-color: colors.$bg1;
   font-family: "Pretendard";
   display: flex;
@@ -45,5 +46,11 @@
 
   &:active {
     transform: scale(0.95) !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .App {
+    padding-top: 130px;
   }
 }
