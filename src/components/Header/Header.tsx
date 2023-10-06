@@ -6,6 +6,7 @@ import "../../styles/_header.scss";
 import Transition from "../Transition/Transition";
 import { Game } from "../../types/Game.types";
 import { addScrollableSelector, disablePageScroll } from "scroll-lock";
+import AnimatedNumber from "react-animated-numbers";
 
 interface Props {
   cartItems: Game[];
@@ -32,7 +33,9 @@ const Header = ({ cartItems, setIsCartOpen }: Props) => {
       >
         <IoCart />
         Cart
-        <span>{cartItems.length}</span>
+        <div>
+          <AnimatedNumber animateToNumber={cartItems.length} />
+        </div>
       </Button>
     </Transition>
   );
