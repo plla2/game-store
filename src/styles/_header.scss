@@ -44,7 +44,7 @@
 }
 
 .Button.Cart {
-  span {
+  > div {
     width: 20px;
     height: 20px;
     display: flex;
@@ -61,7 +61,7 @@
     }
   }
   &:hover {
-    span {
+    > div {
       background-color: white;
     }
   }
