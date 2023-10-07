@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useIsPresent } from "framer-motion";
 import { Game } from "../../types/Game.types";
 import Transition from "../Transition/Transition";
 import { useEffect, useState } from "react";
@@ -15,15 +15,26 @@ interface Props {
   cartItems: Game[];
 }
 
+let scrollY = 0;
+
 const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
   const [displayGames, setDisplayGames] = useState(games);
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+  const isPresent = useIsPresent();
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+  useEffect(() => {
+    !isPresent && ({ scrollY } = window);
+  }, [isPresent]);
 
   useEffect(() => {
     const searchParam = searchParams.get("search") || "";
     setIsLoading(true);
     if (searchParam) {
+      ({ scrollY } = window);
       (async () => {
         setDisplayGames(await loadGames(searchParam));
         setIsLoading(false);
@@ -31,6 +42,7 @@ const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
     } else if (games.length) {
       setDisplayGames(games);
       setIsLoading(false);
+      scrollTo(scrollY);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [games, searchParams]);
