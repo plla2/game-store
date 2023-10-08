@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import { IoGameController, IoCart } from "react-icons/io5";
 import SearchBar from "../SearchBar/SearchBar";
@@ -15,15 +15,14 @@ interface Props {
 }
 
 const Header = ({ cartItems, setIsCartOpen }: Props) => {
+  const navigate = useNavigate();
   return (
     <Headroom upTolerance={1}>
       <Transition className="Header" direction="down" distance={20}>
-        <Link to="/">
-          <Button className="Logo">
-            <IoGameController />
-            GameBox
-          </Button>
-        </Link>
+        <Button className="Logo" handleClick={() => navigate("/")}>
+          <IoGameController />
+          GameBox
+        </Button>
         <SearchBar />
         <Button
           className="Cart"

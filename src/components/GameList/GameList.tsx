@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Game } from "../../types/Game.types";
 import Transition from "../Transition/Transition";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../Button/Button";
 import { RiArrowLeftLine } from "react-icons/ri";
 import Loading from "../Loading/Loading";
@@ -19,6 +19,7 @@ const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
   const [displayGames, setDisplayGames] = useState(games);
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,11 +45,9 @@ const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
       <nav>
         {searchParams.get("search") && (
           <Transition direction="left">
-            <Link to="/games">
-              <Button className="Store">
-                <RiArrowLeftLine /> Store
-              </Button>
-            </Link>
+            <Button className="Store" handleClick={() => navigate("/games")}>
+              <RiArrowLeftLine /> Store
+            </Button>
           </Transition>
         )}
         <motion.h2 layout>

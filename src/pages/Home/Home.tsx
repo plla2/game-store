@@ -4,7 +4,7 @@ import GameCard from "../../components/GameCard/GameCard";
 import Button from "../../components/Button/Button";
 import { RiArrowRightLine } from "react-icons/ri";
 import Transition from "../../components/Transition/Transition";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 
 interface Props {
@@ -29,6 +29,7 @@ const getRandomGames = (games: Game[]): Game[] => {
 
 const Home = ({ games }: Props) => {
   const [homeGames, setHomeGames] = useState(getRandomGames(games));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,11 +51,9 @@ const Home = ({ games }: Props) => {
             big={index === 0}
           />
         ))}
-        <Link to="games" className="Store">
-          <Button>
-            게임 더보기 <RiArrowRightLine />
-          </Button>
-        </Link>
+        <Button className="Store" handleClick={() => navigate("/games")}>
+          게임 더보기 <RiArrowRightLine />
+        </Button>
       </Transition>
       <Footer />
     </>
