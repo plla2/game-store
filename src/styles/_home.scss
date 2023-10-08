@@ -76,28 +76,25 @@ $min-card-height: 125px;
       }
     }
   }
-  a.Store {
+  .Button.Store {
     margin-left: 3%;
     justify-self: center;
 
-    .Button {
-      padding-inline: 0;
-      color: white;
-      font: {
-        size: clamp(17px, 2.5vw, 25px);
-        weight: 600;
-      }
-      &:hover {
-        color: colors.$accent;
+    font: {
+      size: clamp(17px, 2.5vw, 25px);
+      weight: 600;
+    }
+    &:hover {
+      color: colors.$accent;
 
-        svg {
-          transform: translateX(5px);
-          transition-duration: 0.5s;
-        }
+      svg {
+        transform: translateX(5px);
+        transition-duration: 0.5s;
       }
     }
   }
 }
+
 footer {
   margin: {
     block: 5px 30px;
@@ -129,7 +126,7 @@ footer {
     grid-row: 1 / 2;
   }
 
-  a.Store {
+  .Button.Store {
     margin-left: 1%;
     grid-column: 1 / 4;
   }
