@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: 1fr 100fr 1fr;
   background-color: colors.$bg2;
-  position: fixed;
   top: 0;
   z-index: 1;
   padding: 20px clamp(10px, 3vw, 50px);
