@@ -7,6 +7,7 @@ import Transition from "../Transition/Transition";
 import { Game } from "../../types/Game.types";
 import { addScrollableSelector, disablePageScroll } from "scroll-lock";
 import AnimatedNumber from "react-animated-numbers";
+import Headroom from "react-headroom";
 
 interface Props {
   cartItems: Game[];
@@ -15,29 +16,31 @@ interface Props {
 
 const Header = ({ cartItems, setIsCartOpen }: Props) => {
   return (
-    <Transition className="Header" direction="down" distance={20}>
-      <Link to="/">
-        <Button className="Logo">
-          <IoGameController />
-          GameBox
+    <Headroom upTolerance={1}>
+      <Transition className="Header" direction="down" distance={20}>
+        <Link to="/">
+          <Button className="Logo">
+            <IoGameController />
+            GameBox
+          </Button>
+        </Link>
+        <SearchBar />
+        <Button
+          className="Cart"
+          handleClick={() => {
+            setIsCartOpen(true);
+            addScrollableSelector(".Items");
+            disablePageScroll();
+          }}
+        >
+          <IoCart />
+          Cart
+          <div>
+            <AnimatedNumber animateToNumber={cartItems.length} />
+          </div>
         </Button>
-      </Link>
-      <SearchBar />
-      <Button
-        className="Cart"
-        handleClick={() => {
-          setIsCartOpen(true);
-          addScrollableSelector(".Items");
-          disablePageScroll();
-        }}
-      >
-        <IoCart />
-        Cart
-        <div>
-          <AnimatedNumber animateToNumber={cartItems.length} />
-        </div>
-      </Button>
-    </Transition>
+      </Transition>
+    </Headroom>
   );
 };
 
