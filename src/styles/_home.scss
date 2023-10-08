@@ -5,7 +5,7 @@ $min-card-height: 125px;
 .Home {
   min-height: 500px;
   margin: {
-    block: 10px 50px;
+    block: 30px 40px;
     inline: calc(clamp(10px, 3vw, 50px) + 8px);
   }
 
@@ -97,8 +97,8 @@ $min-card-height: 125px;
 
 footer {
   margin: {
-    block: 5px 30px;
-    inline: 8%;
+    block: 5px 20px;
+    inline: 6%;
   }
   display: flex;
   align-items: center;
