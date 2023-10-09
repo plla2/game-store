@@ -1,12 +1,16 @@
 @use "colors";
 
+.headroom {
+  position: fixed !important;
+  z-index: 2 !important;
+  transition: 0.35s !important;
+}
 .Header {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 100fr 1fr;
   background-color: colors.$bg2;
   top: 0;
-  z-index: 1;
   padding: 20px clamp(10px, 3vw, 50px);
   gap: 10px;
 
@@ -66,7 +70,7 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
   .Header {
     grid-template-columns: 100fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -75,6 +79,7 @@
       order: -2;
     }
     .SearchBar {
+      min-width: 100% !important;
       padding-inline: 8px;
       grid-column: 1 / 3;
     }

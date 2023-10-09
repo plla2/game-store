@@ -9,30 +9,6 @@
     block: 10px 50px;
     inline: calc(clamp(10px, 3vw, 50px) + 8px);
   }
-  nav {
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .Button.Store {
-      padding: 0;
-      font-size: 24px;
-
-      &:hover {
-        color: colors.$accent;
-      }
-    }
-    h2 {
-      margin-inline: 6px;
-      color: white;
-
-      font: {
-        size: clamp(26px, 6vw, 45px);
-        weight: 800;
-      }
-    }
-  }
 
   .Grid {
     display: flex;
@@ -43,97 +19,96 @@
       flex-direction: column;
       flex: 1;
       gap: clamp(15px, 3vw, 25px);
+    }
+  }
+}
+.GameCard {
+  background-color: colors.$bg3;
+  color: colors.$text;
+  border-radius: 15px;
+  overflow: hidden;
 
-      .GameCard {
-        background-color: colors.$bg3;
-        color: colors.$text;
-        border-radius: 15px;
-        overflow: hidden;
+  .Image {
+    height: 140px;
+    cursor: pointer;
 
-        .Image {
-          height: 140px;
-          cursor: pointer;
+    background: {
+      size: cover;
+      position: center;
+    }
+  }
 
-          background: {
-            size: cover;
-            position: center;
-          }
+  .Info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 20px 20px;
+
+    .Button.CartButton {
+      font: {
+        size: 14px;
+        weight: 600;
+      }
+    }
+
+    .Button.CartButton:hover {
+      color: colors.$accent;
+    }
+
+    .Button {
+      padding: 0;
+      text-align: left;
+    }
+
+    .Price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5px;
+
+      font: {
+        size: 14px;
+        weight: 600;
+      }
+    }
+
+    .Button.Name {
+      font: {
+        size: 20px;
+        weight: 700;
+      }
+    }
+    .Added {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: lightgreen;
+      user-select: none;
+    }
+    .Button.Name {
+      font: {
+        size: 20px;
+        weight: 600;
+      }
+    }
+    .Details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .Platform {
+        display: flex;
+        gap: 10px;
+        svg {
+          color: white;
+          font-size: 18px;
         }
-
-        .Info {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          padding: 18px 20px 20px;
-
-          .Button.CartButton {
-            font: {
-              size: 14px;
-              weight: 600;
-            }
-          }
-
-          .Button.CartButton:hover {
-            color: colors.$accent;
-          }
-
-          .Button {
-            padding: 0;
-            text-align: left;
-          }
-
-          .Price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5px;
-
-            font: {
-              size: 14px;
-              weight: 600;
-            }
-          }
-
-          .Button.Name {
-            font: {
-              size: 20px;
-              weight: 700;
-            }
-          }
-          .Added {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: lightgreen;
-            user-select: none;
-          }
-          .Button.Name {
-            font: {
-              size: 20px;
-              weight: 600;
-            }
-          }
-          .Details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-
-            .Platform {
-              display: flex;
-              gap: 10px;
-              svg {
-                color: white;
-                font-size: 18px;
-              }
-            }
-            .Released,
-            .Genres {
-              font-size: 14px;
-              color: colors.$text2;
-            }
-          }
-        }
+      }
+      .Released,
+      .Genres {
+        font-size: 14px;
+        color: colors.$text2;
       }
     }
   }
