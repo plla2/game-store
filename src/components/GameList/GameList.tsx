@@ -29,10 +29,10 @@ const GameList = ({
     if (location.pathname === "/games") {
       setGames(null);
       if (location.search) {
-        scrollTo();
-        async () => setGames(await loadGames(searchParams.get("search") || ""));
+        (async () =>
+          setGames(await loadGames(searchParams.get("search") || "")))();
       } else {
-        async () => setGames(await loadGames());
+        (async () => setGames(await loadGames()))();
       }
     }
   }, [searchParams, location]);
