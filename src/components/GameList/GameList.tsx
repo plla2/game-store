@@ -1,67 +1,52 @@
-import { motion } from "framer-motion";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Game } from "../../types/Game.types";
 import Transition from "../Transition/Transition";
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import Button from "../Button/Button";
-import { RiArrowLeftLine } from "react-icons/ri";
+import { useEffect } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Grid from "../Grid/Grid";
+import Navbar from "../Navbar/Navbar";
 
 interface Props {
-  games: Game[];
-  loadGames: (search: string) => Promise<Game[]>;
+  games: Game[] | null;
+  setGames: (games: Game[] | null) => void;
+  loadGames: (search?: string) => Promise<Game[]>;
   addCartItem: (game: Game) => void;
   cartItems: Game[];
 }
 
-const GameList = ({ games, loadGames, addCartItem, cartItems }: Props) => {
-  const [displayGames, setDisplayGames] = useState(games);
+const GameList = ({
+  games,
+  loadGames,
+  addCartItem,
+  cartItems,
+  setGames,
+}: Props) => {
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    setIsLoading(true);
-  }, []);
-
-  useEffect(() => {
-    const searchParam = searchParams.get("search") || "";
-    setIsLoading(true);
-    if (searchParam) {
-      (async () => {
-        setDisplayGames(await loadGames(searchParam));
-        setIsLoading(false);
-      })();
-    } else if (games.length) {
-      setDisplayGames(games);
-      setIsLoading(false);
+    if (location.pathname === "/games") {
+      setGames(null);
+      if (location.search) {
+        scrollTo();
+        async () => setGames(await loadGames(searchParams.get("search") || ""));
+      } else {
+        async () => setGames(await loadGames());
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [games, searchParams]);
+  }, [searchParams, location]);
 
   return (
     <Transition className="GameList" direction="right">
-      <nav>
-        {searchParams.get("search") && (
-          <Transition direction="left">
-            <Button className="Store" handleClick={() => navigate("/games")}>
-              <RiArrowLeftLine /> Store
-            </Button>
-          </Transition>
-        )}
-        <motion.h2 layout>
-          {searchParams.get("search") || "Best of All Time"}
-        </motion.h2>
-      </nav>
-      {isLoading ? (
-        <Loading />
+      <Navbar
+        showStoreButton={!!location.search}
+        title={searchParams.get("search") || "Best of All Time"}
+      />
+      {games ? (
+        <Grid games={games} addCartItem={addCartItem} cartItems={cartItems} />
       ) : (
-        <Grid
-          games={displayGames}
-          addCartItem={addCartItem}
-          cartItems={cartItems}
-        />
+        <Loading />
       )}
     </Transition>
   );
