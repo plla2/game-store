@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import Header from "./components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./styles/App.scss";
@@ -6,7 +6,6 @@ import { gameList } from "./apis/gameList";
 import Home from "./pages/Home/Home";
 import Loading from "./components/Loading/Loading";
 import { Game } from "./types/Game.types";
-// import GameList from "./components/GameList/GameList";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./components/Cart/Cart";
 
@@ -14,11 +13,11 @@ const GameList = lazy(() => import("./components/GameList/GameList"));
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Game[]>([]);
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<Game[] | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
 
-  const loadGames = async (search?: string) => {
+  const loadGames = async (search = "") => {
     const response = await gameList({ page_size: 50, search });
     let { results } = response;
     results = results.filter((game) => game.ratings_count > (search ? 50 : 10));
@@ -34,13 +33,6 @@ const App = () => {
   const removeCartItem = (id: number) => {
     setCartItems((cartItems) => cartItems.filter((game) => game.id !== id));
   };
-
-  useEffect(() => {
-    (async () => {
-      const results = await loadGames("");
-      setGames(results);
-    })();
-  }, []);
 
   return (
     <div className="App">
@@ -58,18 +50,21 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route
             path="/"
-            element={games.length ? <Home games={games} /> : <Loading />}
+            element={<Home setGames={setGames} loadGames={loadGames} />}
           />
           <Route path="games">
             <Route
               index
               element={
-                <GameList
-                  games={games}
-                  loadGames={loadGames}
-                  addCartItem={addCartItem}
-                  cartItems={cartItems}
-                />
+                <Suspense fallback={<Loading />}>
+                  <GameList
+                    games={games}
+                    setGames={setGames}
+                    loadGames={loadGames}
+                    addCartItem={addCartItem}
+                    cartItems={cartItems}
+                  />
+                </Suspense>
               }
             />
           </Route>

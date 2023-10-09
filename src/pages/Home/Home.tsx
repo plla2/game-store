@@ -6,56 +6,71 @@ import { RiArrowRightLine } from "react-icons/ri";
 import Transition from "../../components/Transition/Transition";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
+import Loading from "../../components/Loading/Loading";
 
 interface Props {
-  games: Game[];
+  setGames: (games: Game[]) => void;
+  loadGames: (value?: string) => Promise<Game[]>;
 }
 
 const cardDuration = 10;
-const cycleArray = (array: Game[]) => {
+const cycleArray = (array: unknown[]) => {
   const newArr = [...array];
-  newArr.push(newArr.shift() as Game);
+  newArr.push(newArr.shift());
   return newArr;
 };
 
-const getRandomGames = (games: Game[]): Game[] => {
+const getRandomGames = (games: unknown[], length: number) => {
   const randomGames = new Set();
-  while (randomGames.size < 4) {
+  while (randomGames.size < length) {
     const index = Math.floor(Math.random() * games.length);
     randomGames.add(games[index]);
   }
-  return [...randomGames] as Game[];
+  return [...randomGames];
 };
 
-const Home = ({ games }: Props) => {
-  const [homeGames, setHomeGames] = useState(getRandomGames(games));
+const Home = ({ setGames, loadGames }: Props) => {
+  const [homeGames, setHomeGames] = useState<Game[]>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setHomeGames((games) => cycleArray(games));
-    }, cardDuration * 1000);
+    let interval: number | undefined;
+    (async () => {
+      const loadedGames = await loadGames();
+      const homeGames = getRandomGames(loadedGames, 4) as Game[];
+      setGames(loadedGames);
+      setHomeGames(homeGames);
+      interval = setInterval(() => {
+        setHomeGames((games) => cycleArray(games as Game[]) as Game[]);
+      }, cardDuration * 1000);
+    })();
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
       <Transition className="Home" direction="left">
-        {homeGames.map((game, index) => (
-          <GameCard
-            key={game.id}
-            id={game.id}
-            name={game.name}
-            backgroundImage={game.background_image}
-            duration={cardDuration}
-            big={index === 0}
-          />
-        ))}
-        <Button className="Store" handleClick={() => navigate("/games")}>
-          게임 더보기 <RiArrowRightLine />
-        </Button>
+        {homeGames ? (
+          <Transition className="Grid" direction="left">
+            {homeGames.map((game, index) => (
+              <GameCard
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                backgroundImage={game.background_image}
+                duration={cardDuration}
+                big={index === 0}
+              />
+            ))}
+            <Button className="Store" handleClick={() => navigate("/games")}>
+              게임 더보기 <RiArrowRightLine />
+            </Button>
+          </Transition>
+        ) : (
+          <Loading />
+        )}
+        <Footer />
       </Transition>
-      <Footer />
     </>
   );
 };
