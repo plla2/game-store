@@ -20,14 +20,14 @@ async function get<T>(
   endPoint: string,
   params?: Record<string, string>
 ): Promise<T> {
-  const searchParams = new URLSearchParams(params).toString();
-  if (cachedRequests[searchParams])
-    return cachedRequests[searchParams] as Promise<T>;
-  const res = await axios.get(
-    `${api.url}${endPoint}?${searchParams}&key=${api.key}`
-  );
+  const searchParams = new URLSearchParams(params);
+  const endPointAndParams = `${endPoint}?${searchParams}`;
+
+  if (cachedRequests[endPointAndParams])
+    return cachedRequests[endPointAndParams] as Promise<T>;
+  const res = await axios.get(`${api.url}${endPointAndParams}&key=${api.key}`);
   if (!res.data) throw new Error(res.statusText);
-  cachedRequests[searchParams] = res.data;
+  cachedRequests[endPointAndParams] = res.data;
   localStorage.setItem("cachedRequests", JSON.stringify(cachedRequests));
   return res.data;
 }
