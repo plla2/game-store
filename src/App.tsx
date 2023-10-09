@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./styles/App.scss";
@@ -6,9 +6,11 @@ import { gameList } from "./apis/gameList";
 import Home from "./pages/Home/Home";
 import Loading from "./components/Loading/Loading";
 import { Game } from "./types/Game.types";
-import GameList from "./components/GameList/GameList";
+// import GameList from "./components/GameList/GameList";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./components/Cart/Cart";
+
+const GameList = lazy(() => import("./components/GameList/GameList"));
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Game[]>([]);
