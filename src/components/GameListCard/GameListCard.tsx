@@ -18,7 +18,6 @@ interface Props {
   cartItems: Game[];
 }
 const GameListCard = ({ game, addCartItem, cartItems }: Props) => {
-  console.log(cartItems);
   const {
     price,
     name,
