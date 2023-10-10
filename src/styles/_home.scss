@@ -5,15 +5,21 @@ $min-card-height: 125px;
 .Home {
   min-height: 500px;
   margin: {
-    block: 30px 40px;
     inline: calc(clamp(10px, 3vw, 50px) + 8px);
   }
-
-  display: grid;
-  grid-template-columns: 1fr max(25%, $min-card-height);
-  grid-template-rows: repeat(3, 1fr) min-content;
-  gap: clamp(12px, 2.5vw, 25px);
+  display: flex;
+  flex-direction: column;
   flex: 1;
+
+  .Grid {
+    min-height: 400px;
+    margin-block: 10px;
+    display: grid;
+    grid-template-columns: 1fr max(25%, $min-card-height);
+    grid-template-rows: repeat(3, 1fr) min-content;
+    gap: clamp(15px, 2.5vw, 25px);
+    flex: 1;
+  }
 
   .GameCard {
     min-height: $min-card-height;
