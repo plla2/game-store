@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Game } from "../../types/Game.types";
-import Transition from "../Transition/Transition";
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
-import Loading from "../Loading/Loading";
-import Grid from "../Grid/Grid";
-import Navbar from "../Navbar/Navbar";
 import { useAnimation } from "framer-motion";
+import Transition from "../../components/Transition/Transition";
+import Loading from "../../components/Loading/Loading";
+import Grid from "../../components/Grid/Grid";
+import Navbar from "../../components/Navbar/Navbar";
 
 interface Props {
   games: Game[] | null;
