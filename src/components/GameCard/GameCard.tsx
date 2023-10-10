@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   id: number;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const GameCard = ({ id, name, backgroundImage, duration, big }: Props) => {
+  const navigate = useNavigate();
   return (
     <motion.div
       layoutId={`${id}`}
@@ -21,6 +23,7 @@ const GameCard = ({ id, name, backgroundImage, duration, big }: Props) => {
         scale: { duration: 0.15 },
       }}
       style={{ backgroundImage: `url(${backgroundImage})` }}
+      onClick={() => navigate(`/games/${id}`)}
     >
       <div className="Overlay">
         <AnimatePresence>
