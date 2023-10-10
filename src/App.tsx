@@ -9,7 +9,8 @@ import { Game } from "./types/Game.types";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./components/Cart/Cart";
 
-const GameList = lazy(() => import("./components/GameList/GameList"));
+const GameList = lazy(() => import("./pages/GameList/GameList"));
+const GameDetails = lazy(() => import("./pages/GameDetails/GameDetails"));
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Game[]>([]);
@@ -68,6 +69,18 @@ const App = () => {
               }
             />
           </Route>
+          <Route
+            path="/games/:gameId"
+            element={
+              <Suspense fallback={<Loading />}>
+                <GameDetails
+                  games={games}
+                  cartItems={cartItems}
+                  addCartItem={addCartItem}
+                />
+              </Suspense>
+            }
+          />
         </Routes>
       </AnimatePresence>
     </div>
