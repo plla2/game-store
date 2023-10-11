@@ -3,6 +3,7 @@
 @use "home";
 @use "game-list";
 @use "cart";
+@use "./game-details";
 
 .App {
   min-height: 100vh;
