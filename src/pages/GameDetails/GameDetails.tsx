@@ -60,14 +60,12 @@ const GameDetails = ({ games, cartItems, addCartItem }: Props) => {
                       className="BackgroundImage"
                       src={shot.image}
                       alt="screenshot"
-                      width={900}
-                      height={500}
                     />
                   </div>
                 ))}
               </Carousel>
               <Info game={game} />
-              <div>
+              <div className="Price">
                 ${game.price}
                 {cartItems.find((item) => item.id === id) ? (
                   <Transition className="Added">
