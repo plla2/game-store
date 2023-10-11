@@ -45,7 +45,7 @@ const Carousel = ({ duration, children, useDots = true }: Props) => {
           {childrenArray.map((_, i) => (
             <motion.div
               className="Dot"
-              key={`dot-${index}`}
+              key={`dot-${i}`}
               initial={false}
               animate={{ scale: +(index !== i) }}
               transition={{ type: "spring", duration: 0.01 }}
