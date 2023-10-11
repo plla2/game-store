@@ -18,18 +18,10 @@ const Info = ({ game }: Props) => {
         </a>
         <p>Released: {new Date(game.released).toLocaleDateString()}</p>
         <p>
-          Platform:{" "}
+          Platforms:{" "}
           {game.platforms.map((platform) => platform.platform.name).join(", ")}
         </p>
         <p>Genres: {game.genres.map((genre) => genre.name).join(", ")}</p>
-        <p>
-          Developers:{" "}
-          {game.developers.map((developer) => developer.name).join(", ")}
-        </p>
-        <p>
-          Publishers:{" "}
-          {game.publishers.map((publisher) => publisher.name).join(", ")}
-        </p>
       </div>
     </Transition>
   );

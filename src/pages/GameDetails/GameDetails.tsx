@@ -36,14 +36,33 @@ const GameDetails = ({ games, cartItems, addCartItem }: Props) => {
     };
     loadDetails();
     if (games) {
-      const game = games.find((game) => game.id === id);
+      const game = games.find((game) => game.id === Number(id));
       game ? setGame((g) => ({ ...g, ...game })) : loadScreenshots();
     } else {
       loadScreenshots();
     }
-    setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (game?.description_raw && game?.short_screenshots) {
+      if (!game.short_screenshots.find((ss) => ss.id === -1)) {
+        setGame(
+          (g) =>
+            ({
+              ...g,
+              short_screenshots: [
+                { id: -1, image: game.background_image },
+                ...(g?.short_screenshots || []),
+              ],
+            } as Game)
+        );
+      }
+      setIsLoading(false);
+    }
+  }, [game]);
+
+  console.log(game);
+  console.log(game?.price);
   return (
     <div>
       <Transition className="GameDetails" direction="left">
@@ -54,7 +73,7 @@ const GameDetails = ({ games, cartItems, addCartItem }: Props) => {
           game && (
             <Transition className="Grid" direction="down">
               <Carousel duration={6}>
-                {game?.short_screenshots.map((shot) => (
+                {game.short_screenshots.map((shot) => (
                   <div className="Image" key={`img-${shot.id}`}>
                     <img
                       className="BackgroundImage"
