@@ -8,6 +8,7 @@ import Loading from "./components/Loading/Loading";
 import { Game } from "./types/Game.types";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./components/Cart/Cart";
+import { getPrice } from "./utils/getPrice";
 
 const GameList = lazy(() => import("./pages/GameList/GameList"));
 const GameDetails = lazy(() => import("./pages/GameDetails/GameDetails"));
@@ -22,8 +23,7 @@ const App = () => {
     const response = await gameList({ page_size: 50, search });
     let { results } = response;
     results = results.filter((game) => game.ratings_count > (search ? 50 : 10));
-    const isIndie = (game: Game) => game.genres.find((g) => g.name === "Indie");
-    results.forEach((game) => (game.price = isIndie(game) ? 19.99 : 49.99));
+    results.forEach((game) => (game.price = getPrice(game)));
     return results;
   };
 
