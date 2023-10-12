@@ -11,6 +11,7 @@ import Carousel from "../../components/Carousel/Carousel";
 import Info from "../../components/Info/Info";
 import { RiAddLine, RiCheckLine } from "react-icons/ri";
 import Button from "../../components/Button/Button";
+import { getPrice } from "../../utils/getPrice";
 
 interface Props {
   games: Game[] | null;
@@ -57,12 +58,13 @@ const GameDetails = ({ games, cartItems, addCartItem }: Props) => {
             } as Game)
         );
       }
+      if (!game?.price) {
+        setGame((g) => ({ ...g, price: getPrice(game) } as Game));
+      }
       setIsLoading(false);
     }
   }, [game]);
 
-  console.log(game);
-  console.log(game?.price);
   return (
     <div>
       <Transition className="GameDetails" direction="left">

@@ -7,7 +7,7 @@ const getPrice = (game: Game) => {
   const currentYear = new Date().getFullYear();
   const yearAgo = currentYear - releaseYear;
   let discountPerYear = isIndie ? 0.3 : 0.375;
-  let newPrice = isIndie ? 30 : 70;
+  let newPrice = isIndie ? 200 : 300;
   for (let i = 0; i < yearAgo; i++) {
     newPrice *= 1 - discountPerYear;
     discountPerYear -= 0.02;
