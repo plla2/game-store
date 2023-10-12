@@ -11,6 +11,7 @@ import {
 } from "react-icons/ai";
 import { RiCheckLine, RiPlaystationFill, RiXboxFill } from "react-icons/ri";
 import { SiLinux, SiNintendo3Ds } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   game: Game;
@@ -38,13 +39,14 @@ const GameListCard = ({ game, addCartItem, cartItems }: Props) => {
   };
   const [isHovered, setIsHovered] = useState(false);
   const genresList = genres.map(({ name }) => name).join(", ");
-
+  const navigate = useNavigate();
   return (
     <div className="GameCard">
       <motion.div
         className="Image"
         style={{ backgroundImage: `url(${background_image})` }}
         whileHover={{ height: 180 }}
+        onClick={() => navigate(`/games/${id}`)}
       />
       <motion.div
         className="Info"
@@ -67,7 +69,9 @@ const GameListCard = ({ game, addCartItem, cartItems }: Props) => {
           )}
           $ {price}
         </div>
-        <Button className="Name">{name}</Button>
+        <Button className="Name" handleClick={() => navigate(`/games/${id}`)}>
+          {name}
+        </Button>
         <AnimatePresence>
           {isHovered && (
             <Transition className="Details">
