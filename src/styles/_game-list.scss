@@ -22,6 +22,17 @@
     }
   }
 }
+.NoGames {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: colors.$text2;
+  font: {
+    size: 32px;
+    weight: 600;
+  }
+}
 .GameCard {
   background-color: colors.$bg3;
   color: colors.$text;
