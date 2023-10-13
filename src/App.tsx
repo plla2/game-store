@@ -9,6 +9,7 @@ import { Game } from "./types/Game.types";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./components/Cart/Cart";
 import { getPrice } from "./utils/getPrice";
+import NotFound from "./pages/NotFound/NotFound";
 
 const GameList = lazy(() => import("./pages/GameList/GameList"));
 const GameDetails = lazy(() => import("./pages/GameDetails/GameDetails"));
@@ -49,6 +50,7 @@ const App = () => {
       </AnimatePresence>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          <Route path="*" element={<NotFound />} />
           <Route
             path="/"
             element={<Home setGames={setGames} loadGames={loadGames} />}
