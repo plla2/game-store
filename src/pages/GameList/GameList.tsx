@@ -55,7 +55,11 @@ const GameList = ({
         title={searchParams.get("search") || "Best of All Time"}
       />
       {games ? (
-        <Grid games={games} addCartItem={addCartItem} cartItems={cartItems} />
+        games.length ? (
+          <Grid games={games} addCartItem={addCartItem} cartItems={cartItems} />
+        ) : (
+          <Transition className="NoGames">No games found.</Transition>
+        )
       ) : (
         <Loading />
       )}
