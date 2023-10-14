@@ -15,23 +15,22 @@ interface Props {
 
 const Header = ({ cartItems, setIsCartOpen }: Props) => {
   const navigate = useNavigate();
-  const goHome = () => {
-    navigate(`/`);
-  };
-  const openCart = () => {
-    setIsCartOpen(true);
-    addScrollableSelector(".Items");
-    disablePageScroll();
-  };
   return (
     <Headroom upTolerance={1}>
       <Transition className="Header" direction="down" distance={20}>
-        <Button className="Logo" handleClick={goHome}>
+        <Button className="Logo" handleClick={() => navigate("/")}>
           <IoGameController />
           GameBox
         </Button>
         <SearchBar />
-        <Button className="Cart" handleClick={openCart}>
+        <Button
+          className="Cart"
+          handleClick={() => {
+            setIsCartOpen(true);
+            addScrollableSelector(".Items");
+            disablePageScroll();
+          }}
+        >
           <IoCart />
           Cart
           <div>{cartItems.length}</div>
