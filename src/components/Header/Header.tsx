@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import { IoGameController, IoCart } from "react-icons/io5";
@@ -7,13 +8,14 @@ import Transition from "../Transition/Transition";
 import { Game } from "../../types/Game.types";
 import { addScrollableSelector, disablePageScroll } from "scroll-lock";
 import Headroom from "react-headroom";
+import React, { memo } from "react";
 
 interface Props {
   cartItems: Game[];
   setIsCartOpen: (isCartOpen: boolean) => void;
 }
 
-const Header = ({ cartItems, setIsCartOpen }: Props) => {
+const Header = memo(({ cartItems, setIsCartOpen }: Props) => {
   const navigate = useNavigate();
   return (
     <Headroom upTolerance={1}>
@@ -38,6 +40,6 @@ const Header = ({ cartItems, setIsCartOpen }: Props) => {
       </Transition>
     </Headroom>
   );
-};
+});
 
-export default Header;
+export default React.memo(Header);
