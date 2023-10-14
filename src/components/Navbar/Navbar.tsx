@@ -11,11 +11,14 @@ interface Props {
 
 const Navbar = ({ showStoreButton, title }: Props) => {
   const navigate = useNavigate();
+  const goList = () => {
+    navigate(`/games`);
+  };
   return (
     <nav className="NavBar">
       {showStoreButton && (
         <Transition direction="left">
-          <Button className="Store" handleClick={() => navigate("/games")}>
+          <Button className="Store" handleClick={goList}>
             <RiArrowLeftLine /> Store
           </Button>
         </Transition>

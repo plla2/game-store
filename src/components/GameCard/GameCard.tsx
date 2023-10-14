@@ -11,6 +11,9 @@ interface Props {
 
 const GameCard = ({ id, name, backgroundImage, duration, big }: Props) => {
   const navigate = useNavigate();
+  const goDetails = () => {
+    navigate(`/games/${id}`);
+  };
   return (
     <motion.div
       layoutId={`${id}`}
@@ -23,7 +26,7 @@ const GameCard = ({ id, name, backgroundImage, duration, big }: Props) => {
         scale: { duration: 0.15 },
       }}
       style={{ backgroundImage: `url(${backgroundImage})` }}
-      onClick={() => navigate(`/games/${id}`)}
+      onClick={goDetails}
     >
       <div className="Overlay">
         <AnimatePresence>
