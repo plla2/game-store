@@ -5,7 +5,6 @@ import CartCard from "../CartCard/CartCard";
 import Transition from "../Transition/Transition";
 import { enablePageScroll } from "scroll-lock";
 import { AnimatePresence, motion } from "framer-motion";
-import AnimatedNumber from "react-animated-numbers";
 
 interface Props {
   cartItems: Game[];
@@ -64,10 +63,7 @@ const Cart = ({ cartItems, setIsCartOpen, removeCartItem }: Props) => {
           </AnimatePresence>
         </div>
         <div className="Checkout">
-          <div>
-            Total: ${" "}
-            <AnimatedNumber includeComma animateToNumber={+totalPrice} />
-          </div>
+          <div>Total: ${totalPrice}</div>
           <Button>
             Checkout <RiArrowRightLine />
           </Button>
