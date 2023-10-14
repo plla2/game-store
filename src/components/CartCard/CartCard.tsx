@@ -15,7 +15,7 @@ const CartCard = ({ cart, removeCartItem }: Props) => {
   };
   return (
     <Transition className="Item" layout direction="right" durationOut={0.15}>
-      <Button handleClick={() => goGame()}>{cart.name}</Button>
+      <Button handleClick={goGame}>{cart.name}</Button>
       <p>{`$ ${cart.price}`}</p>
       <Button
         className="Remove"
