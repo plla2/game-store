@@ -1,6 +1,6 @@
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useCallback, useState } from "react";
 import Header from "./components/Header/Header";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./styles/App.scss";
 import { gameList } from "./apis/gameList";
 import Home from "./pages/Home/Home";
@@ -14,27 +14,26 @@ import NotFound from "./pages/NotFound/NotFound";
 const GameList = lazy(() => import("./pages/GameList/GameList"));
 const GameDetails = lazy(() => import("./pages/GameDetails/GameDetails"));
 
+const loadGames = async (search = "") => {
+  const response = await gameList({ page_size: 50, search });
+  let { results } = response;
+  results = results.filter((game) => game.ratings_count > (search ? 50 : 10));
+  results.forEach((game) => (game.price = getPrice(game)));
+  return results;
+};
+
 const App = () => {
   const [cartItems, setCartItems] = useState<Game[]>([]);
   const [games, setGames] = useState<Game[] | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const location = useLocation();
 
-  const loadGames = async (search = "") => {
-    const response = await gameList({ page_size: 50, search });
-    let { results } = response;
-    results = results.filter((game) => game.ratings_count > (search ? 50 : 10));
-    results.forEach((game) => (game.price = getPrice(game)));
-    return results;
-  };
-
-  const addCartItem = (game: Game) => {
+  const addCartItem = useCallback((game: Game) => {
     setCartItems((cartItems) => [...cartItems, game]);
-  };
+  }, []);
 
-  const removeCartItem = (id: number) => {
+  const removeCartItem = useCallback((id: number) => {
     setCartItems((cartItems) => cartItems.filter((game) => game.id !== id));
-  };
+  }, []);
 
   return (
     <div className="App">
@@ -49,7 +48,7 @@ const App = () => {
         )}
       </AnimatePresence>
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
+        <Routes>
           <Route path="*" element={<NotFound />} />
           <Route
             path="/"
