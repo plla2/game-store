@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Button from "../Button/Button";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "@react-icons/all-files/ai/AiOutlineLeft";
+import { AiOutlineRight } from "@react-icons/all-files/ai/AiOutlineRight";
 import { motion } from "framer-motion";
 import { Children, useEffect, useRef, useState } from "react";
 

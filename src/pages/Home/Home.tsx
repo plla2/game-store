@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Game } from "../../types/Game.types";
 import GameCard from "../../components/GameCard/GameCard";
 import Button from "../../components/Button/Button";
-import { RiArrowRightLine } from "react-icons/ri";
+import { RiArrowRightLine } from "@react-icons/all-files/ri/RiArrowRightLine";
 import Transition from "../../components/Transition/Transition";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";

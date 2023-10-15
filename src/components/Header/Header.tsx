@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
-import { IoGameController, IoCart } from "react-icons/io5";
+import { IoGameController } from "@react-icons/all-files/io5/IoGameController";
+import { IoCart } from "@react-icons/all-files/io5/IoCart";
 import SearchBar from "../SearchBar/SearchBar";
 import "../../styles/_header.scss";
 import Transition from "../Transition/Transition";

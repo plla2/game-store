@@ -9,7 +9,8 @@ import { gameScreenShot } from "../../apis/gameScreenShots";
 import { gameDetail } from "../../apis/gameDetail";
 import Carousel from "../../components/Carousel/Carousel";
 import Info from "../../components/Info/Info";
-import { RiAddLine, RiCheckLine } from "react-icons/ri";
+import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
+import { RiCheckLine } from "@react-icons/all-files/ri/RiCheckLine";
 import Button from "../../components/Button/Button";
 import { getPrice } from "../../utils/getPrice";
 

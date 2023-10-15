@@ -1,6 +1,6 @@
 import { motion, useAnimation } from "framer-motion";
 import Button from "../Button/Button";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "@react-icons/all-files/ai/AiOutlineSearch";
 import { FormEvent, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Transition from "../Transition/Transition";
 import Button from "../Button/Button";
-import { RiArrowLeftLine } from "react-icons/ri";
+import { RiArrowLeftLine } from "@react-icons/all-files/ri/RiArrowLeftLine";
 import { motion } from "framer-motion";
 
 interface Props {

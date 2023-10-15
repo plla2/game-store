@@ -1,4 +1,4 @@
-import { RiGithubLine } from "react-icons/ri";
+import { RiGithubLine } from "@react-icons/all-files/ri/RiGithubLine";
 
 const Footer = () => {
   return (

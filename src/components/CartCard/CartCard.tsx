@@ -1,4 +1,4 @@
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import { Game } from "../../types/Game.types";
 import Button from "../Button/Button";
 import Transition from "../Transition/Transition";

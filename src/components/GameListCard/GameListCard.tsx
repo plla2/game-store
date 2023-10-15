@@ -3,14 +3,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import Button from "../Button/Button";
 import { useState } from "react";
 import Transition from "../Transition/Transition";
-import {
-  AiFillWindows,
-  AiFillAndroid,
-  AiFillApple,
-  AiOutlinePlus,
-} from "react-icons/ai";
-import { RiCheckLine, RiPlaystationFill, RiXboxFill } from "react-icons/ri";
-import { SiLinux, SiNintendo3Ds } from "react-icons/si";
+import { AiFillWindows } from "@react-icons/all-files/ai/AiFillWindows";
+import { AiFillAndroid } from "@react-icons/all-files/ai/AiFillAndroid";
+import { AiFillApple } from "@react-icons/all-files/ai/AiFillApple";
+import { AiOutlinePlus } from "@react-icons/all-files/ai/AiOutlinePlus";
+import { RiPlaystationFill } from "@react-icons/all-files/ri/RiPlaystationFill";
+import { RiXboxFill } from "@react-icons/all-files/ri/RiXboxFill";
+import { SiNintendo3Ds } from "@react-icons/all-files/si/SiNintendo3Ds";
+import { RiCheckLine } from "@react-icons/all-files/ri/RiCheckLine";
+import { SiLinux } from "@react-icons/all-files/si/SiLinux";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

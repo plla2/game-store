@@ -1,4 +1,4 @@
-import { RiArrowRightLine } from "react-icons/ri";
+import { RiArrowRightLine } from "@react-icons/all-files/ri/RiArrowRightLine";
 import { Game } from "../../types/Game.types";
 import Button from "../Button/Button";
 import CartCard from "../CartCard/CartCard";
