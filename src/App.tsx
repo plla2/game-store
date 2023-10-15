@@ -36,29 +36,29 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
-      <AnimatePresence mode="wait">
-        {isCartOpen && (
-          <Cart
-            cartItems={cartItems}
-            setIsCartOpen={setIsCartOpen}
-            removeCartItem={removeCartItem}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route
-            path="/"
-            element={<Home setGames={setGames} loadGames={loadGames} />}
-          />
-          <Route path="games">
+    <Suspense fallback={<Loading />}>
+      <div className="App">
+        <Header cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+        <AnimatePresence mode="wait">
+          {isCartOpen && (
+            <Cart
+              cartItems={cartItems}
+              setIsCartOpen={setIsCartOpen}
+              removeCartItem={removeCartItem}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route
-              index
-              element={
-                <Suspense fallback={<Loading />}>
+              path="/"
+              element={<Home setGames={setGames} loadGames={loadGames} />}
+            />
+            <Route path="games">
+              <Route
+                index
+                element={
                   <GameList
                     games={games}
                     setGames={setGames}
@@ -66,25 +66,23 @@ const App = () => {
                     addCartItem={addCartItem}
                     cartItems={cartItems}
                   />
-                </Suspense>
-              }
-            />
-          </Route>
-          <Route
-            path="/games/:gameId"
-            element={
-              <Suspense fallback={<Loading />}>
+                }
+              />
+            </Route>
+            <Route
+              path="/games/:gameId"
+              element={
                 <GameDetails
                   games={games}
                   cartItems={cartItems}
                   addCartItem={addCartItem}
                 />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </AnimatePresence>
-    </div>
+              }
+            />
+          </Routes>
+        </AnimatePresence>
+      </div>
+    </Suspense>
   );
 };
 
