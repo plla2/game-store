@@ -5,6 +5,7 @@ import CartCard from "../CartCard/CartCard";
 import Transition from "../Transition/Transition";
 import { enablePageScroll } from "scroll-lock";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMemo } from "react";
 
 interface Props {
   cartItems: Game[];
@@ -13,9 +14,9 @@ interface Props {
 }
 
 const Cart = ({ cartItems, setIsCartOpen, removeCartItem }: Props) => {
-  const totalPrice = cartItems
-    .reduce((acc, item) => acc + item.price, 0)
-    .toFixed(2);
+  const totalPrice = useMemo(() => {
+    return cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2);
+  }, [cartItems]);
 
   const clearCart = () => {
     cartItems.forEach((item) => removeCartItem(item.id));
