@@ -9,7 +9,6 @@ import Footer from "../../components/Footer/Footer";
 import Loading from "../../components/Loading/Loading";
 
 interface Props {
-  setGames: (games: Game[]) => void;
   loadGames: (value?: string) => Promise<Game[]>;
 }
 
@@ -29,19 +28,19 @@ const getRandomGames = (games: unknown[], length: number) => {
   return [...randomGames];
 };
 
-const Home = ({ setGames, loadGames }: Props) => {
-  const [homeGames, setHomeGames] = useState<Game[]>();
+const Home = ({ loadGames }: Props) => {
+  const [games, setGames] = useState<Game[]>();
   const navigate = useNavigate();
+  const navigateToStore = () => navigate(`/games`);
 
   useEffect(() => {
     let interval: number | undefined;
     (async () => {
       const loadedGames = await loadGames();
-      const homeGames = getRandomGames(loadedGames, 4) as Game[];
-      setGames(loadedGames);
-      setHomeGames(homeGames);
+      const games = getRandomGames(loadedGames, 4) as Game[];
+      setGames(games);
       interval = setInterval(() => {
-        setHomeGames((games) => cycleArray(games as Game[]) as Game[]);
+        setGames((games) => cycleArray(games as Game[]) as Game[]);
       }, cardDuration * 1000);
     })();
     return () => clearInterval(interval);
@@ -51,9 +50,9 @@ const Home = ({ setGames, loadGames }: Props) => {
   return (
     <>
       <Transition className="Home" direction="left">
-        {homeGames ? (
+        {games ? (
           <Transition className="Grid" direction="left">
-            {homeGames.map((game, index) => (
+            {games.map((game, index) => (
               <GameCard
                 key={game.id}
                 id={game.id}
@@ -63,7 +62,7 @@ const Home = ({ setGames, loadGames }: Props) => {
                 big={index === 0}
               />
             ))}
-            <Button className="Store" handleClick={() => navigate("/games")}>
+            <Button className="Store" handleClick={navigateToStore}>
               게임 더보기 <RiArrowRightLine />
             </Button>
           </Transition>

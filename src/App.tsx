@@ -51,10 +51,7 @@ const App = () => {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="*" element={<NotFound />} />
-            <Route
-              path="/"
-              element={<Home setGames={setGames} loadGames={loadGames} />}
-            />
+            <Route path="/" element={<Home loadGames={loadGames} />} />
             <Route path="games">
               <Route
                 index
