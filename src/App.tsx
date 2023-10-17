@@ -69,11 +69,7 @@ const App = () => {
             <Route
               path="/games/:gameId"
               element={
-                <GameDetails
-                  games={games}
-                  cartItems={cartItems}
-                  addCartItem={addCartItem}
-                />
+                <GameDetails cartItems={cartItems} addCartItem={addCartItem} />
               }
             />
           </Routes>

@@ -15,96 +15,66 @@ import Button from "../../components/Button/Button";
 import { getPrice } from "../../utils/getPrice";
 
 interface Props {
-  games: Game[] | null;
   cartItems: Game[];
   addCartItem: (game: Game) => void;
 }
 
-const GameDetails = ({ games, cartItems, addCartItem }: Props) => {
+const GameDetails = ({ cartItems, addCartItem }: Props) => {
   const params = useParams();
   const id = Number(params.gameId);
   const [game, setGame] = useState<Game>();
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadDetails = async () => {
-      const res = await gameDetail({ id });
-      setGame((game) => ({ ...game, ...res }));
-    };
-    const loadScreenshots = async () => {
-      const res = await gameScreenShot({ id });
-      const short_screenshots = res.results;
-      setGame((game) => ({ ...game, short_screenshots } as Game));
-    };
-    loadDetails();
-    if (games) {
-      const game = games.find((game) => game.id === Number(id));
-      game ? setGame((g) => ({ ...g, ...game })) : loadScreenshots();
-    } else {
-      loadScreenshots();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (game?.description_raw && game?.short_screenshots) {
-      if (!game.short_screenshots.find((ss) => ss.id === -1)) {
-        setGame(
-          (g) =>
-            ({
-              ...g,
-              short_screenshots: [
-                { id: -1, image: game.background_image },
-                ...(g?.short_screenshots || []),
-              ],
-            } as Game)
-        );
-      }
-      if (!game?.price) {
-        setGame((g) => ({ ...g, price: getPrice(game) } as Game));
-      }
-      setIsLoading(false);
-    }
-  }, [game]);
+    (async () => {
+      const [game, screenshots] = await Promise.all([
+        gameDetail({ id }),
+        gameScreenShot({ id }),
+      ]);
+      const short_screenshots = [
+        { id: -1, image: game.background_image },
+        ...screenshots.results,
+      ];
+      const price = getPrice(game);
+      setGame({ ...game, short_screenshots, price });
+    })();
+  }, [id]);
 
   return (
     <div>
       <Transition className="GameDetails" direction="left">
         <Navbar title={game?.name} showStoreButton />
-        {isLoading ? (
-          <Loading />
+        {game ? (
+          <Transition className="Grid" direction="down">
+            <Carousel duration={6}>
+              {game.short_screenshots.map((shot) => (
+                <div className="Image" key={`img-${shot.id}`}>
+                  <img
+                    className="BackgroundImage"
+                    src={shot.image}
+                    alt="screenshot"
+                  />
+                </div>
+              ))}
+            </Carousel>
+            <Info game={game} />
+            <div className="Price">
+              ${game.price}
+              {cartItems.find((item) => item.id === id) ? (
+                <Transition className="Added">
+                  Added <RiCheckLine />
+                </Transition>
+              ) : (
+                <Button handleClick={() => addCartItem(game)}>
+                  Add to cart <RiAddLine />
+                </Button>
+              )}
+            </div>
+          </Transition>
         ) : (
-          game && (
-            <Transition className="Grid" direction="down">
-              <Carousel duration={6}>
-                {game.short_screenshots.map((shot) => (
-                  <div className="Image" key={`img-${shot.id}`}>
-                    <img
-                      className="BackgroundImage"
-                      src={shot.image}
-                      alt="screenshot"
-                    />
-                  </div>
-                ))}
-              </Carousel>
-              <Info game={game} />
-              <div className="Price">
-                ${game.price}
-                {cartItems.find((item) => item.id === id) ? (
-                  <Transition className="Added">
-                    Added <RiCheckLine />
-                  </Transition>
-                ) : (
-                  <Button handleClick={() => addCartItem(game)}>
-                    Add to cart <RiAddLine />
-                  </Button>
-                )}
-              </div>
-            </Transition>
-          )
+          <Loading />
         )}
       </Transition>
     </div>
   );
 };
-
 export default GameDetails;
