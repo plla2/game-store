@@ -7,26 +7,27 @@ import Transition from "../../components/Transition/Transition";
 import Loading from "../../components/Loading/Loading";
 import Grid from "../../components/Grid/Grid";
 import Navbar from "../../components/Navbar/Navbar";
+import { useWindowWidth } from "@react-hook/window-size";
 
 interface Props {
-  games: Game[] | null;
-  setGames: (games: Game[] | null) => void;
   loadGames: (search?: string) => Promise<Game[]>;
   addCartItem: (game: Game) => void;
   cartItems: Game[];
 }
+const minCardWidth = 330;
 
-const GameList = ({
-  games,
-  loadGames,
-  addCartItem,
-  cartItems,
-  setGames,
-}: Props) => {
+const GameList = ({ loadGames, addCartItem, cartItems }: Props) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const [scrollY, setScrollY] = useState(0);
+  const [games, setGames] = useState<Game[] | null>(null);
+  const [columns, setColumns] = useState(1);
+  const windowWidth = useWindowWidth();
   const controls = useAnimation();
+
+  useEffect(() => {
+    setColumns(Math.floor(windowWidth / minCardWidth) || 1);
+  }, [windowWidth]);
 
   useEffect(() => {
     if (location.pathname === "/games") {
@@ -56,7 +57,12 @@ const GameList = ({
       />
       {games ? (
         games.length ? (
-          <Grid games={games} addCartItem={addCartItem} cartItems={cartItems} />
+          <Grid
+            games={games}
+            addCartItem={addCartItem}
+            cartItems={cartItems}
+            columnsCount={columns}
+          />
         ) : (
           <Transition className="NoGames">No games found.</Transition>
         )

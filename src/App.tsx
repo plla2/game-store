@@ -24,7 +24,6 @@ const loadGames = async (search = "") => {
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Game[]>([]);
-  const [games, setGames] = useState<Game[] | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addCartItem = useCallback((game: Game) => {
@@ -57,8 +56,6 @@ const App = () => {
                 index
                 element={
                   <GameList
-                    games={games}
-                    setGames={setGames}
                     loadGames={loadGames}
                     addCartItem={addCartItem}
                     cartItems={cartItems}
