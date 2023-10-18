@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = {
   url: "https://api.rawg.io/api/",
-  key: "1d2b5d761b684c5da2d5e4ee96fd0092",
+  key: import.meta.env.VITE_RAWG_API_KEY,
 };
 
 const cachedRequests = JSON.parse(
