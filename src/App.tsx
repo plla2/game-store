@@ -30,8 +30,10 @@ const App = () => {
     setCartItems((cartItems) => [...cartItems, game]);
   }, []);
 
-  const removeCartItem = useCallback((id: number) => {
-    setCartItems((cartItems) => cartItems.filter((game) => game.id !== id));
+  const removeCartItem = useCallback((ids: number[]) => {
+    setCartItems((cartItems) =>
+      cartItems.filter((game) => !ids.includes(game.id))
+    );
   }, []);
 
   return (

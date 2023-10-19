@@ -10,7 +10,7 @@ import { useMemo } from "react";
 interface Props {
   cartItems: Game[];
   setIsCartOpen: (cartOpen: boolean) => void;
-  removeCartItem: (id: number) => void;
+  removeCartItem: (ids: number[]) => void;
 }
 
 const Cart = ({ cartItems, setIsCartOpen, removeCartItem }: Props) => {
@@ -19,7 +19,7 @@ const Cart = ({ cartItems, setIsCartOpen, removeCartItem }: Props) => {
   }, [cartItems]);
 
   const clearCart = () => {
-    cartItems.forEach((item) => removeCartItem(item.id));
+    removeCartItem(cartItems.map((item) => item.id));
   };
 
   let gamesCount;

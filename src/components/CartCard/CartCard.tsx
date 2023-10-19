@@ -6,22 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   cart: Game;
-  removeCartItem: (id: number) => void;
+  removeCartItem: (ids: number[]) => void;
 }
 const CartCard = ({ cart, removeCartItem }: Props) => {
   const navigate = useNavigate();
   const goGame = () => {
     navigate(`/games/${cart.id}`);
   };
+  const removeItem = () => removeCartItem([cart.id]);
   return (
     <Transition className="Item" layout direction="right" durationOut={0.15}>
       <Button handleClick={goGame}>{cart.name}</Button>
       <p>{`$ ${cart.price}`}</p>
-      <Button
-        className="Remove"
-        title="Remove"
-        handleClick={() => removeCartItem(cart.id)}
-      >
+      <Button className="Remove" title="Remove" handleClick={removeItem}>
         <AiOutlineClose />
       </Button>
     </Transition>
